@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: larlena <larlena@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hapryl <hapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:08:52 by zera              #+#    #+#             */
-/*   Updated: 2022/01/22 18:10:41 by larlena          ###   ########.fr       */
+/*   Updated: 2022/01/22 20:04:37 by hapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void Server::connectEvent() {
 	try {
 		int		socket = _serverSocket.accept();
 		_connectionsService.addConnection(socket);
+		_connectionsService.addResponse(socket, Message::toServerResponse("REGISTER or LOGIN", SuccessType()));
 		_fdMax = std::max(_fdMax, socket);
 		std::cout << "Connection accepted " << socket << std::endl;
 	} catch(std::exception &e) {
